@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/turbot/tailpipe-plugin-chaos/rows"
+	"github.com/turbot/tailpipe-plugin-sdk/config_data"
 	"github.com/turbot/tailpipe-plugin-sdk/enrichment"
 	"github.com/turbot/tailpipe-plugin-sdk/parse"
 	"github.com/turbot/tailpipe-plugin-sdk/row_source"
@@ -18,14 +19,14 @@ const AllColumnsSourceIdentifier = "chaos"
 
 // AllColumnsSource source is responsible for collecting audit logs from Turbot Pipes API
 type AllColumnsSource struct {
-	row_source.RowSourceImpl[*AllColumnsConfig]
+	row_source.RowSourceImpl[*AllColumnsSourceConfig]
 }
 
 func NewAllColumnsSource() row_source.RowSource {
 	return &AllColumnsSource{}
 }
 
-func (s *AllColumnsSource) Init(ctx context.Context, configData *types.ConfigData, opts ...row_source.RowSourceOption) error {
+func (s *AllColumnsSource) Init(ctx context.Context, configData config_data.ConfigData, opts ...row_source.RowSourceOption) error {
 	// // set the collection state ctor
 	// s.NewCollectionStateFunc = collection_state.NewTimeRangeCollectionState
 
@@ -38,7 +39,7 @@ func (s *AllColumnsSource) Identifier() string {
 }
 
 func (s *AllColumnsSource) GetConfigSchema() parse.Config {
-	return &AllColumnsConfig{}
+	return &AllColumnsSourceConfig{}
 }
 
 func (s *AllColumnsSource) Collect(ctx context.Context) error {
@@ -52,26 +53,9 @@ func (s *AllColumnsSource) Collect(ctx context.Context) error {
 
 	slog.Debug(">> Collecting data from source")
 
-	for i := 0; i < 10; i++ {
-		rowData := &rows.AllColumns{
-			SmallInt:  int16(rand.Intn(32767)),
-			Integer:   int32(rand.Int31()),
-			BigInt:    rand.Int63(),
-			UTinyInt:  uint8(rand.Intn(255)),
-			UInteger:  rand.Uint32(),
-			UBigInt:   rand.Uint64(),
-			Float:     rand.Float32(),
-			Double:    rand.Float64(),
-			Decimal:   rand.Float64() * 100, // Example range for decimal
-			Varchar:   randomString(10),
-			Char:      string([]byte{byte(rand.Intn(26) + 65)}), // Single ASCII character
-			Boolean:   rand.Intn(2) == 0,
-			Date:      time.Now().AddDate(0, 0, rand.Intn(365)),
-			Timestamp: time.Now().Add(time.Duration(rand.Intn(86400)) * time.Second),
-			Interval:  fmt.Sprintf("%dh", rand.Intn(24)), // Example interval as a string
-			IntArray:  []int32{rand.Int31(), rand.Int31(), rand.Int31()},
-			CreatedAt: time.Now(),
-		}
+	for i := 1; i <= s.Config.RowCount; i++ {
+		// populate the row data
+		rowData := s.populateRowData(i)
 
 		row := &types.RowData{Data: rowData, Metadata: sourceEnrichmentFields}
 		slog.Debug(">> Sending row to plugin", row)
@@ -81,6 +65,29 @@ func (s *AllColumnsSource) Collect(ctx context.Context) error {
 	}
 
 	return nil
+}
+
+func (s *AllColumnsSource) populateRowData(i int) *rows.AllColumns {
+	return &rows.AllColumns{
+		Id:        i,
+		SmallInt:  int16(rand.Intn(32767)),
+		Integer:   int32(rand.Int31()),
+		BigInt:    rand.Int63(),
+		UTinyInt:  uint8(rand.Intn(255)),
+		UInteger:  rand.Uint32(),
+		UBigInt:   rand.Uint64(),
+		Float:     rand.Float32(),
+		Double:    rand.Float64(),
+		Decimal:   rand.Float64() * 100,
+		Varchar:   randomString(10),
+		Char:      string([]byte{byte(rand.Intn(26) + 65)}),
+		Boolean:   rand.Intn(2) == 0,
+		Date:      time.Now().AddDate(0, 0, rand.Intn(365)),
+		Timestamp: time.Now().Add(time.Duration(rand.Intn(86400)) * time.Second),
+		Interval:  fmt.Sprintf("%dh", rand.Intn(24)),
+		IntArray:  []int32{rand.Int31(), rand.Int31(), rand.Int31()},
+		CreatedAt: time.Now(),
+	}
 }
 
 func randomString(n int) string {

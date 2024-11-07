@@ -54,13 +54,14 @@ func (c *AllColumnsTable) EnrichRow(row *rows.AllColumns, sourceEnrichmentFields
 
 	// id & Hive fields
 	row.TpID = xid.New().String()
-	row.TpPartition = AllColumnsTableIdentifier
-	// row.TpIndex = row.IdentityHandle
+	row.TpIndex = c.Config.Index
 	row.TpDate = row.CreatedAt.Format("2006-01-02")
 
 	// Timestamps
 	row.TpTimestamp = helpers.UnixMillis(row.CreatedAt.UnixNano() / int64(time.Millisecond))
 	row.TpIngestTimestamp = helpers.UnixMillis(time.Now().UnixNano() / int64(time.Millisecond))
+
+	slog.Debug(">> TpIndex", "index", row.TpIndex)
 
 	// Other Enrichment Fields
 	// if row.ActorIp != "" {

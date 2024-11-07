@@ -42,4 +42,7 @@ type AllColumns struct {
 
 	// CreatedAt time.Time `json:"created_at"`
 	CreatedAt time.Time `json:"created_at"`
+
+	// Id
+	Id int `json:"id"`
 }
