@@ -9,7 +9,6 @@ import (
 	"github.com/turbot/tailpipe-plugin-chaos/config"
 	"github.com/turbot/tailpipe-plugin-chaos/rows"
 	"github.com/turbot/tailpipe-plugin-sdk/enrichment"
-	"github.com/turbot/tailpipe-plugin-sdk/helpers"
 	"github.com/turbot/tailpipe-plugin-sdk/parse"
 	"github.com/turbot/tailpipe-plugin-sdk/table"
 )
@@ -58,8 +57,8 @@ func (c *AllColumnsTable) EnrichRow(row *rows.AllColumns, sourceEnrichmentFields
 	row.TpDate = row.CreatedAt.Format("2006-01-02")
 
 	// Timestamps
-	row.TpTimestamp = helpers.UnixMillis(row.CreatedAt.UnixNano() / int64(time.Millisecond))
-	row.TpIngestTimestamp = helpers.UnixMillis(time.Now().UnixNano() / int64(time.Millisecond))
+	row.TpTimestamp = row.CreatedAt
+	row.TpIngestTimestamp = time.Now()
 
 	slog.Debug(">> TpIndex", "index", row.TpIndex)
 
