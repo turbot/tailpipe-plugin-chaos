@@ -18,3 +18,7 @@ func (c *AllColumnsSourceConfig) Validate() error {
 	}
 	return nil
 }
+
+func (c *AllColumnsSourceConfig) Identifier() string {
+	return AllColumnsSourceIdentifier
+}

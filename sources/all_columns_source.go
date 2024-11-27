@@ -6,48 +6,48 @@ import (
 	"log/slog"
 	"time"
 
+	"github.com/turbot/tailpipe-plugin-chaos/config"
 	"github.com/turbot/tailpipe-plugin-chaos/rows"
+	"github.com/turbot/tailpipe-plugin-sdk/collection_state"
 	"github.com/turbot/tailpipe-plugin-sdk/config_data"
 	"github.com/turbot/tailpipe-plugin-sdk/enrichment"
-	"github.com/turbot/tailpipe-plugin-sdk/parse"
 	"github.com/turbot/tailpipe-plugin-sdk/row_source"
 	"github.com/turbot/tailpipe-plugin-sdk/types"
 	"golang.org/x/exp/rand"
 )
 
-const AllColumnsSourceIdentifier = "chaos"
+const AllColumnsSourceIdentifier = "chaos_all_columns"
+
+// init function should register the source
+func init() {
+	row_source.RegisterRowSource[*AllColumnsSource]()
+}
 
 // AllColumnsSource source is responsible for collecting audit logs from Turbot Pipes API
 type AllColumnsSource struct {
-	row_source.RowSourceImpl[*AllColumnsSourceConfig]
+	// row_source.RowSourceImpl[*AllColumnsSourceConfig]
+	row_source.RowSourceImpl[*AllColumnsSourceConfig, *config.ChaosConnection]
 }
 
-func NewAllColumnsSource() row_source.RowSource {
-	return &AllColumnsSource{}
-}
-
-func (s *AllColumnsSource) Init(ctx context.Context, configData config_data.ConfigData, opts ...row_source.RowSourceOption) error {
-	// // set the collection state ctor
-	// s.NewCollectionStateFunc = collection_state.NewTimeRangeCollectionState
+func (s *AllColumnsSource) Init(ctx context.Context, configData config_data.ConfigData, connectionData config_data.ConfigData, opts ...row_source.RowSourceOption) error {
+	// set the collection state ctor
+	s.NewCollectionStateFunc = collection_state.NewTimeRangeCollectionState
 
 	// call base init
-	return s.RowSourceImpl.Init(ctx, configData, opts...)
+	return s.RowSourceImpl.Init(ctx, configData, connectionData, opts...)
 }
 
 func (s *AllColumnsSource) Identifier() string {
 	return AllColumnsSourceIdentifier
 }
 
-func (s *AllColumnsSource) GetConfigSchema() parse.Config {
-	return &AllColumnsSourceConfig{}
-}
-
 func (s *AllColumnsSource) Collect(ctx context.Context) error {
 
 	// populate enrichment fields the source is aware of
 	// - in this case the connection
+	sourceName := AllColumnsSourceIdentifier
 	sourceEnrichmentFields := &enrichment.CommonFields{
-		TpSourceName: AllColumnsSourceIdentifier,
+		TpSourceName: &sourceName,
 		TpSourceType: AllColumnsSourceIdentifier, // TODO: review this
 	}
 
