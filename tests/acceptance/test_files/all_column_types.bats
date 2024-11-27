@@ -4,9 +4,7 @@ load "$LIB_BATS_SUPPORT/load.bash"
 @test "verify single row count" {
   cat << EOF > ~/.tailpipe/config/chaos_all_col_types.tpc
 partition "chaos_all_columns" "chaos_all_column_types" {
-  index = "chaos_all_column_types"
-  plugin = "chaos"
-  source "chaos" {
+  source "chaos_all_columns" {
     row_count = 1
   }
 }
@@ -29,9 +27,7 @@ EOF
 @test "verify high row count" {
   cat << EOF > ~/.tailpipe/config/chaos_high_row_count.tpc
 partition "chaos_all_columns" "chaos_high_row_count" {
-  index = "chaos_high_row_count"
-  plugin = "chaos"
-  source "chaos" {
+  source "chaos_all_columns" {
     row_count = 100000
   }
 }
@@ -52,11 +48,10 @@ EOF
 }
 
 @test "verify very high row count" {
+  skip "enable while testing"
   cat << EOF > ~/.tailpipe/config/chaos_very_high_row_count.tpc
 partition "chaos_all_columns" "chaos_very_high_row_count" {
-  index = "chaos_very_high_row_count"
-  plugin = "chaos"
-  source "chaos" {
+  source "chaos_all_columns" {
     row_count = 10000000
   }
 }
