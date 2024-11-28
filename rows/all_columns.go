@@ -37,7 +37,7 @@ type AllColumns struct {
 	// Interval type
 	Interval string `json:"interval_column"` // Using string as placeholder for interval
 
-	// Array type (simplified to slice of integers for this example)
+	// ArrayStruct type (simplified to slice of integers for this example)
 	IntArray []int32 `json:"int_array_column"`
 
 	// CreatedAt time.Time `json:"created_at"`
