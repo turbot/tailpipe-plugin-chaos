@@ -55,6 +55,7 @@ func (s *StructColumnsSource) populateRowData(i int) *rows.StructColumns {
 	rowData.SimpleStruct = s.randomSimpleStruct()
 	rowData.ArrayStruct = s.randomStructWithArray()
 	rowData.NestedStruct = s.randomNestedStruct(rowData.SimpleStruct)
+	rowData.ComplexNestedStruct = s.randomComplexNestedStruct()
 	return &rowData
 }
 
@@ -94,5 +95,24 @@ func (s *StructColumnsSource) randomNestedStruct(sub *rows.SimpleStruct) *rows.N
 		Id:   rand.Int63(),
 		Name: fmt.Sprintf("name-%d", rand.Intn(100)),
 		Sub:  sub,
+	}
+}
+
+func (s *StructColumnsSource) randomComplexNestedStruct() *rows.ComplexNestedStruct {
+	if rand.Intn(2) == 0 {
+		return nil
+	}
+
+	var subStructs []*rows.SimpleStruct
+	for i := 0; i < rand.Intn(10); i++ {
+		subStructs = append(subStructs, &rows.SimpleStruct{
+			Id:   rand.Int63(),
+			Name: fmt.Sprintf("name-%d", rand.Intn(100)),
+		})
+	}
+
+	return &rows.ComplexNestedStruct{
+		Id:         rand.Int63(),
+		SubStructs: subStructs,
 	}
 }

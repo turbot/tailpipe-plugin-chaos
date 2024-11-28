@@ -14,9 +14,10 @@ type StructColumns struct {
 	Timestamp  time.Time `json:"timestamp"`
 
 	// Additional fields
-	SimpleStruct *SimpleStruct    `json:"simple_struct,omitempty"`
-	ArrayStruct  *StructWithArray `json:"array_struct,omitempty"`
-	NestedStruct *NestedStruct    `json:"nested_struct,omitempty"`
+	SimpleStruct        *SimpleStruct        `json:"simple_struct,omitempty"`
+	ArrayStruct         *StructWithArray     `json:"array_struct,omitempty"`
+	NestedStruct        *NestedStruct        `json:"nested_struct,omitempty"`
+	ComplexNestedStruct *ComplexNestedStruct `json:"complex_nested_struct,omitempty"`
 }
 
 type SimpleStruct struct {
@@ -33,4 +34,10 @@ type NestedStruct struct {
 	Id   int64         `json:"id"`
 	Name string        `json:"name"`
 	Sub  *SimpleStruct `json:"sub,omitempty"`
+}
+
+type ComplexNestedStruct struct {
+	Id int64 `json:"id"`
+
+	SubStructs []*SimpleStruct `json:"sub_structs,omitempty"`
 }
