@@ -34,7 +34,6 @@ func (s *StructColumnsSource) Collect(ctx context.Context) error {
 	sourceName := StructColumnsSourceIdentifier
 	sourceEnrichmentFields := &enrichment.SourceEnrichment{
 		CommonFields: enrichment.CommonFields{
-
 			TpSourceName: &sourceName,
 			TpSourceType: StructColumnsSourceIdentifier,
 		},

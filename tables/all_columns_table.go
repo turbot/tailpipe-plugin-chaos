@@ -1,7 +1,6 @@
 package tables
 
 import (
-	"fmt"
 	"log/slog"
 	"time"
 
@@ -41,10 +40,6 @@ func (c *AllColumnsTable) GetSourceMetadata(_ *AllColumnsTableConfig) []*table.S
 
 func (c *AllColumnsTable) EnrichRow(row *rows.AllColumns, _ *AllColumnsTableConfig, sourceEnrichmentFields enrichment.SourceEnrichment) (*rows.AllColumns, error) {
 	slog.Debug(">> AllColumnsEnrichRow")
-	// we expect name to be set by the Source
-	if sourceEnrichmentFields.CommonFields.TpSourceName == nil {
-		return nil, fmt.Errorf("AllColumnsTable EnrichRow called with TpSourceName unset in sourceEnrichmentFields")
-	}
 
 	row.CommonFields = sourceEnrichmentFields.CommonFields
 
