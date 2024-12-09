@@ -1,4 +1,7 @@
-# Table: chaos_all_column_types
+---
+title: "Source: chaos_all_columns"
+description: "."
+---
 
 Chaos table to test all columns of different types. This table has columns for all possible data types used in tailpipe.
 
