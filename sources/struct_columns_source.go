@@ -32,14 +32,17 @@ func (s *StructColumnsSource) Identifier() string {
 
 func (s *StructColumnsSource) Collect(ctx context.Context) error {
 	sourceName := StructColumnsSourceIdentifier
-	sourceEnrichmentFields := &enrichment.CommonFields{
-		TpSourceName: &sourceName,
-		TpSourceType: StructColumnsSourceIdentifier,
+	sourceEnrichmentFields := &enrichment.SourceEnrichment{
+		CommonFields: enrichment.CommonFields{
+
+			TpSourceName: &sourceName,
+			TpSourceType: StructColumnsSourceIdentifier,
+		},
 	}
 
 	for i := 1; i <= s.Config.RowCount; i++ {
 		rowData := s.populateRowData(i)
-		row := &types.RowData{Data: rowData, Metadata: sourceEnrichmentFields}
+		row := &types.RowData{Data: rowData, SourceEnrichment: sourceEnrichmentFields}
 		if err := s.OnRow(ctx, row, nil); err != nil {
 			return fmt.Errorf("error processing row: %w", err)
 		}

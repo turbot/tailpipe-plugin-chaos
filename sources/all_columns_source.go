@@ -46,9 +46,11 @@ func (s *AllColumnsSource) Collect(ctx context.Context) error {
 	// populate enrichment fields the source is aware of
 	// - in this case the connection
 	sourceName := AllColumnsSourceIdentifier
-	sourceEnrichmentFields := &enrichment.CommonFields{
-		TpSourceName: &sourceName,
-		TpSourceType: AllColumnsSourceIdentifier, // TODO: review this
+	sourceEnrichmentFields := &enrichment.SourceEnrichment{
+		CommonFields: enrichment.CommonFields{
+			TpSourceName: &sourceName,
+			TpSourceType: AllColumnsSourceIdentifier, // TODO: review this
+		},
 	}
 
 	slog.Debug(">> Collecting data from source")
@@ -57,7 +59,7 @@ func (s *AllColumnsSource) Collect(ctx context.Context) error {
 		// populate the row data
 		rowData := s.populateRowData(i)
 
-		row := &types.RowData{Data: rowData, Metadata: sourceEnrichmentFields}
+		row := &types.RowData{Data: rowData, SourceEnrichment: sourceEnrichmentFields}
 		slog.Debug(">> Sending row to plugin", row)
 		if err := s.OnRow(ctx, row, nil); err != nil {
 			return fmt.Errorf("error processing row: %w", err)

@@ -29,7 +29,7 @@ func (c *StructColumnsTable) Identifier() string {
 	return StructColumnsTableIdentifier
 }
 
-func (c *StructColumnsTable) SupportedSources(_ *StructColumnsTableConfig) []*table.SourceMetadata[*rows.StructColumns] {
+func (c *StructColumnsTable) GetSourceMetadata(_ *StructColumnsTableConfig) []*table.SourceMetadata[*rows.StructColumns] {
 	return []*table.SourceMetadata[*rows.StructColumns]{
 		{
 			SourceName: sources.StructColumnsSourceIdentifier,
@@ -37,8 +37,8 @@ func (c *StructColumnsTable) SupportedSources(_ *StructColumnsTableConfig) []*ta
 	}
 }
 
-func (c *StructColumnsTable) EnrichRow(row *rows.StructColumns, sourceEnrichmentFields *enrichment.CommonFields) (*rows.StructColumns, error) {
-	row.CommonFields = *sourceEnrichmentFields
+func (c *StructColumnsTable) EnrichRow(row *rows.StructColumns, _ *StructColumnsTableConfig, sourceEnrichmentFields enrichment.SourceEnrichment) (*rows.StructColumns, error) {
+	row.CommonFields = sourceEnrichmentFields.CommonFields
 
 	row.TpID = xid.New().String()
 	row.TpIndex = row.Timestamp.Format("2006_01_02_06_05_04")

@@ -31,7 +31,7 @@ func (c *AllColumnsTable) Identifier() string {
 	return AllColumnsTableIdentifier
 }
 
-func (c *AllColumnsTable) SupportedSources(_ *AllColumnsTableConfig) []*table.SourceMetadata[*rows.AllColumns] {
+func (c *AllColumnsTable) GetSourceMetadata(_ *AllColumnsTableConfig) []*table.SourceMetadata[*rows.AllColumns] {
 	return []*table.SourceMetadata[*rows.AllColumns]{
 		{
 			SourceName: sources.AllColumnsSourceIdentifier,
@@ -39,18 +39,14 @@ func (c *AllColumnsTable) SupportedSources(_ *AllColumnsTableConfig) []*table.So
 	}
 }
 
-func (c *AllColumnsTable) EnrichRow(row *rows.AllColumns, sourceEnrichmentFields *enrichment.CommonFields) (*rows.AllColumns, error) {
+func (c *AllColumnsTable) EnrichRow(row *rows.AllColumns, _ *AllColumnsTableConfig, sourceEnrichmentFields enrichment.SourceEnrichment) (*rows.AllColumns, error) {
 	slog.Debug(">> AllColumnsEnrichRow")
-	// we expect sourceEnrichmentFields to be set
-	if sourceEnrichmentFields == nil {
-		return nil, fmt.Errorf("AllColumns EnrichRow called with nil sourceEnrichmentFields")
-	}
 	// we expect name to be set by the Source
-	if sourceEnrichmentFields.TpSourceName == nil {
+	if sourceEnrichmentFields.CommonFields.TpSourceName == nil {
 		return nil, fmt.Errorf("AllColumnsTable EnrichRow called with TpSourceName unset in sourceEnrichmentFields")
 	}
 
-	row.CommonFields = *sourceEnrichmentFields
+	row.CommonFields = sourceEnrichmentFields.CommonFields
 
 	// id & Hive fields
 	row.TpID = xid.New().String()
