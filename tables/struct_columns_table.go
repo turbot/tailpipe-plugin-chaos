@@ -4,10 +4,9 @@ import (
 	"time"
 
 	"github.com/rs/xid"
-
 	"github.com/turbot/tailpipe-plugin-chaos/rows"
 	"github.com/turbot/tailpipe-plugin-chaos/sources"
-	"github.com/turbot/tailpipe-plugin-sdk/enrichment"
+	"github.com/turbot/tailpipe-plugin-sdk/schema"
 	"github.com/turbot/tailpipe-plugin-sdk/table"
 )
 
@@ -37,7 +36,7 @@ func (c *StructColumnsTable) GetSourceMetadata(_ *StructColumnsTableConfig) []*t
 	}
 }
 
-func (c *StructColumnsTable) EnrichRow(row *rows.StructColumns, _ *StructColumnsTableConfig, sourceEnrichmentFields enrichment.SourceEnrichment) (*rows.StructColumns, error) {
+func (c *StructColumnsTable) EnrichRow(row *rows.StructColumns, _ *StructColumnsTableConfig, sourceEnrichmentFields schema.SourceEnrichment) (*rows.StructColumns, error) {
 	row.CommonFields = sourceEnrichmentFields.CommonFields
 
 	row.TpID = xid.New().String()

@@ -3,13 +3,13 @@ package rows
 import (
 	"time"
 
-	"github.com/turbot/tailpipe-plugin-sdk/enrichment"
+	"github.com/turbot/tailpipe-plugin-sdk/schema"
 )
 
 // AllColumns is the struct containing the enriched data
 type AllColumns struct {
 	// embed required enrichment fields
-	enrichment.CommonFields
+	schema.CommonFields
 
 	// Additional fields
 	// Numeric types

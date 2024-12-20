@@ -8,8 +8,8 @@ import (
 
 	"github.com/turbot/tailpipe-plugin-chaos/config"
 	"github.com/turbot/tailpipe-plugin-chaos/rows"
-	"github.com/turbot/tailpipe-plugin-sdk/enrichment"
 	"github.com/turbot/tailpipe-plugin-sdk/row_source"
+	"github.com/turbot/tailpipe-plugin-sdk/schema"
 	"github.com/turbot/tailpipe-plugin-sdk/types"
 )
 
@@ -32,8 +32,8 @@ func (s *StructColumnsSource) Identifier() string {
 
 func (s *StructColumnsSource) Collect(ctx context.Context) error {
 	sourceName := StructColumnsSourceIdentifier
-	sourceEnrichmentFields := &enrichment.SourceEnrichment{
-		CommonFields: enrichment.CommonFields{
+	sourceEnrichmentFields := &schema.SourceEnrichment{
+		CommonFields: schema.CommonFields{
 			TpSourceName: &sourceName,
 			TpSourceType: StructColumnsSourceIdentifier,
 		},

@@ -5,10 +5,9 @@ import (
 	"time"
 
 	"github.com/rs/xid"
-
 	"github.com/turbot/tailpipe-plugin-chaos/rows"
 	"github.com/turbot/tailpipe-plugin-chaos/sources"
-	"github.com/turbot/tailpipe-plugin-sdk/enrichment"
+	"github.com/turbot/tailpipe-plugin-sdk/schema"
 	"github.com/turbot/tailpipe-plugin-sdk/table"
 )
 
@@ -38,7 +37,7 @@ func (c *AllColumnsTable) GetSourceMetadata(_ *AllColumnsTableConfig) []*table.S
 	}
 }
 
-func (c *AllColumnsTable) EnrichRow(row *rows.AllColumns, _ *AllColumnsTableConfig, sourceEnrichmentFields enrichment.SourceEnrichment) (*rows.AllColumns, error) {
+func (c *AllColumnsTable) EnrichRow(row *rows.AllColumns, _ *AllColumnsTableConfig, sourceEnrichmentFields schema.SourceEnrichment) (*rows.AllColumns, error) {
 	slog.Debug(">> AllColumnsEnrichRow")
 
 	row.CommonFields = sourceEnrichmentFields.CommonFields

@@ -10,8 +10,8 @@ import (
 	"github.com/turbot/tailpipe-plugin-chaos/rows"
 	"github.com/turbot/tailpipe-plugin-sdk/collection_state"
 	"github.com/turbot/tailpipe-plugin-sdk/config_data"
-	"github.com/turbot/tailpipe-plugin-sdk/enrichment"
 	"github.com/turbot/tailpipe-plugin-sdk/row_source"
+	"github.com/turbot/tailpipe-plugin-sdk/schema"
 	"github.com/turbot/tailpipe-plugin-sdk/types"
 	"golang.org/x/exp/rand"
 )
@@ -46,8 +46,8 @@ func (s *AllColumnsSource) Collect(ctx context.Context) error {
 	// populate enrichment fields the source is aware of
 	// - in this case the connection
 	sourceName := AllColumnsSourceIdentifier
-	sourceEnrichmentFields := &enrichment.SourceEnrichment{
-		CommonFields: enrichment.CommonFields{
+	sourceEnrichmentFields := &schema.SourceEnrichment{
+		CommonFields: schema.CommonFields{
 			TpSourceName: &sourceName,
 			TpSourceType: AllColumnsSourceIdentifier, // TODO: review this
 		},
