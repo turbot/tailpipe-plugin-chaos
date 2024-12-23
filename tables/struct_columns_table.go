@@ -16,7 +16,7 @@ func init() {
 	// 1. row struct
 	// 2. table config struct
 	// 3. table implementation
-	table.RegisterTable[*rows.StructColumns, *StructColumnsTableConfig, *StructColumnsTable]()
+	table.RegisterTable[*rows.StructColumns, *StructColumnsTable]()
 }
 
 const StructColumnsTableIdentifier = "chaos_struct_columns"
@@ -28,7 +28,7 @@ func (c *StructColumnsTable) Identifier() string {
 	return StructColumnsTableIdentifier
 }
 
-func (c *StructColumnsTable) GetSourceMetadata(_ *StructColumnsTableConfig) []*table.SourceMetadata[*rows.StructColumns] {
+func (c *StructColumnsTable) GetSourceMetadata() []*table.SourceMetadata[*rows.StructColumns] {
 	return []*table.SourceMetadata[*rows.StructColumns]{
 		{
 			SourceName: sources.StructColumnsSourceIdentifier,
@@ -36,7 +36,7 @@ func (c *StructColumnsTable) GetSourceMetadata(_ *StructColumnsTableConfig) []*t
 	}
 }
 
-func (c *StructColumnsTable) EnrichRow(row *rows.StructColumns, _ *StructColumnsTableConfig, sourceEnrichmentFields schema.SourceEnrichment) (*rows.StructColumns, error) {
+func (c *StructColumnsTable) EnrichRow(row *rows.StructColumns, sourceEnrichmentFields schema.SourceEnrichment) (*rows.StructColumns, error) {
 	row.CommonFields = sourceEnrichmentFields.CommonFields
 
 	row.TpID = xid.New().String()

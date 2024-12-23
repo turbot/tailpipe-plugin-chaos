@@ -17,7 +17,7 @@ func init() {
 	// 1. row struct
 	// 2. table config struct
 	// 3. table implementation
-	table.RegisterTable[*rows.AllColumns, *AllColumnsTableConfig, *AllColumnsTable]()
+	table.RegisterTable[*rows.AllColumns, *AllColumnsTable]()
 }
 
 const AllColumnsTableIdentifier = "chaos_all_columns"
@@ -29,7 +29,7 @@ func (c *AllColumnsTable) Identifier() string {
 	return AllColumnsTableIdentifier
 }
 
-func (c *AllColumnsTable) GetSourceMetadata(_ *AllColumnsTableConfig) []*table.SourceMetadata[*rows.AllColumns] {
+func (c *AllColumnsTable) GetSourceMetadata() []*table.SourceMetadata[*rows.AllColumns] {
 	return []*table.SourceMetadata[*rows.AllColumns]{
 		{
 			SourceName: sources.AllColumnsSourceIdentifier,
@@ -37,7 +37,7 @@ func (c *AllColumnsTable) GetSourceMetadata(_ *AllColumnsTableConfig) []*table.S
 	}
 }
 
-func (c *AllColumnsTable) EnrichRow(row *rows.AllColumns, _ *AllColumnsTableConfig, sourceEnrichmentFields schema.SourceEnrichment) (*rows.AllColumns, error) {
+func (c *AllColumnsTable) EnrichRow(row *rows.AllColumns, sourceEnrichmentFields schema.SourceEnrichment) (*rows.AllColumns, error) {
 	slog.Debug(">> AllColumnsEnrichRow")
 
 	row.CommonFields = sourceEnrichmentFields.CommonFields
