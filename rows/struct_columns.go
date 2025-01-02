@@ -3,12 +3,12 @@ package rows
 import (
 	"time"
 
-	"github.com/turbot/tailpipe-plugin-sdk/enrichment"
+	"github.com/turbot/tailpipe-plugin-sdk/schema"
 )
 
 type StructColumns struct {
 	// embed required enrichment fields
-	enrichment.CommonFields
+	schema.CommonFields
 
 	Identifier string    `json:"identifier"`
 	Timestamp  time.Time `json:"timestamp"`

@@ -4,10 +4,9 @@ import (
 	"time"
 
 	"github.com/rs/xid"
-
 	"github.com/turbot/tailpipe-plugin-chaos/rows"
 	"github.com/turbot/tailpipe-plugin-chaos/sources"
-	"github.com/turbot/tailpipe-plugin-sdk/enrichment"
+	"github.com/turbot/tailpipe-plugin-sdk/schema"
 	"github.com/turbot/tailpipe-plugin-sdk/table"
 )
 
@@ -17,7 +16,7 @@ func init() {
 	// 1. row struct
 	// 2. table config struct
 	// 3. table implementation
-	table.RegisterTable[*rows.StructColumns, *StructColumnsTableConfig, *StructColumnsTable]()
+	table.RegisterTable[*rows.StructColumns, *StructColumnsTable]()
 }
 
 const StructColumnsTableIdentifier = "chaos_struct_columns"
@@ -29,7 +28,7 @@ func (c *StructColumnsTable) Identifier() string {
 	return StructColumnsTableIdentifier
 }
 
-func (c *StructColumnsTable) GetSourceMetadata(_ *StructColumnsTableConfig) []*table.SourceMetadata[*rows.StructColumns] {
+func (c *StructColumnsTable) GetSourceMetadata() []*table.SourceMetadata[*rows.StructColumns] {
 	return []*table.SourceMetadata[*rows.StructColumns]{
 		{
 			SourceName: sources.StructColumnsSourceIdentifier,
@@ -37,7 +36,7 @@ func (c *StructColumnsTable) GetSourceMetadata(_ *StructColumnsTableConfig) []*t
 	}
 }
 
-func (c *StructColumnsTable) EnrichRow(row *rows.StructColumns, _ *StructColumnsTableConfig, sourceEnrichmentFields enrichment.SourceEnrichment) (*rows.StructColumns, error) {
+func (c *StructColumnsTable) EnrichRow(row *rows.StructColumns, sourceEnrichmentFields schema.SourceEnrichment) (*rows.StructColumns, error) {
 	row.CommonFields = sourceEnrichmentFields.CommonFields
 
 	row.TpID = xid.New().String()

@@ -1,15 +1,13 @@
 package tables
 
 import (
-	"fmt"
 	"log/slog"
 	"time"
 
 	"github.com/rs/xid"
-
 	"github.com/turbot/tailpipe-plugin-chaos/rows"
 	"github.com/turbot/tailpipe-plugin-chaos/sources"
-	"github.com/turbot/tailpipe-plugin-sdk/enrichment"
+	"github.com/turbot/tailpipe-plugin-sdk/schema"
 	"github.com/turbot/tailpipe-plugin-sdk/table"
 )
 
@@ -19,7 +17,7 @@ func init() {
 	// 1. row struct
 	// 2. table config struct
 	// 3. table implementation
-	table.RegisterTable[*rows.AllColumns, *AllColumnsTableConfig, *AllColumnsTable]()
+	table.RegisterTable[*rows.AllColumns, *AllColumnsTable]()
 }
 
 const AllColumnsTableIdentifier = "chaos_all_columns"
@@ -31,7 +29,7 @@ func (c *AllColumnsTable) Identifier() string {
 	return AllColumnsTableIdentifier
 }
 
-func (c *AllColumnsTable) GetSourceMetadata(_ *AllColumnsTableConfig) []*table.SourceMetadata[*rows.AllColumns] {
+func (c *AllColumnsTable) GetSourceMetadata() []*table.SourceMetadata[*rows.AllColumns] {
 	return []*table.SourceMetadata[*rows.AllColumns]{
 		{
 			SourceName: sources.AllColumnsSourceIdentifier,
@@ -39,12 +37,8 @@ func (c *AllColumnsTable) GetSourceMetadata(_ *AllColumnsTableConfig) []*table.S
 	}
 }
 
-func (c *AllColumnsTable) EnrichRow(row *rows.AllColumns, _ *AllColumnsTableConfig, sourceEnrichmentFields enrichment.SourceEnrichment) (*rows.AllColumns, error) {
+func (c *AllColumnsTable) EnrichRow(row *rows.AllColumns, sourceEnrichmentFields schema.SourceEnrichment) (*rows.AllColumns, error) {
 	slog.Debug(">> AllColumnsEnrichRow")
-	// we expect name to be set by the Source
-	if sourceEnrichmentFields.CommonFields.TpSourceName == nil {
-		return nil, fmt.Errorf("AllColumnsTable EnrichRow called with TpSourceName unset in sourceEnrichmentFields")
-	}
 
 	row.CommonFields = sourceEnrichmentFields.CommonFields
 
