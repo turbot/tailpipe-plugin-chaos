@@ -3,6 +3,7 @@ package sources
 import (
 	"context"
 	"fmt"
+	"github.com/turbot/tailpipe-plugin-sdk/config_data"
 	"log/slog"
 	"time"
 
@@ -28,7 +29,7 @@ type AllColumnsSource struct {
 	row_source.RowSourceImpl[*AllColumnsSourceConfig, *config.ChaosConnection]
 }
 
-func (s *AllColumnsSource) Init(ctx context.Context, configData types.ConfigData, connectionData types.ConfigData, opts ...row_source.RowSourceOption) error {
+func (s *AllColumnsSource) Init(ctx context.Context, configData config_data.ConfigData, connectionData config_data.ConfigData, opts ...row_source.RowSourceOption) error {
 	// set the collection state ctor
 	s.NewCollectionStateFunc = collection_state.NewTimeRangeCollectionState
 
