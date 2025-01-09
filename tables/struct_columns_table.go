@@ -5,8 +5,8 @@ import (
 
 	"github.com/rs/xid"
 	"github.com/turbot/tailpipe-plugin-chaos/rows"
-	"github.com/turbot/tailpipe-plugin-chaos/sources"
 	"github.com/turbot/tailpipe-plugin-sdk/schema"
+	"github.com/turbot/tailpipe-plugin-chaos/sources"
 	"github.com/turbot/tailpipe-plugin-sdk/table"
 )
 
