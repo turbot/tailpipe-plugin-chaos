@@ -28,12 +28,12 @@ type AllColumnsSource struct {
 	row_source.RowSourceImpl[*AllColumnsSourceConfig, *config.ChaosConnection]
 }
 
-func (s *AllColumnsSource) Init(ctx context.Context, configData types.ConfigData, connectionData types.ConfigData, opts ...row_source.RowSourceOption) error {
+func (s *AllColumnsSource) Init(ctx context.Context, params *row_source.RowSourceParams, opts ...row_source.RowSourceOption) error {
 	// set the collection state ctor
 	s.NewCollectionStateFunc = collection_state.NewTimeRangeCollectionState
 
 	// call base init
-	return s.RowSourceImpl.Init(ctx, configData, connectionData, opts...)
+	return s.RowSourceImpl.Init(ctx, params, opts...)
 }
 
 func (s *AllColumnsSource) Identifier() string {
@@ -60,7 +60,7 @@ func (s *AllColumnsSource) Collect(ctx context.Context) error {
 
 		row := &types.RowData{Data: rowData, SourceEnrichment: sourceEnrichmentFields}
 		slog.Debug(">> Sending row to plugin", row)
-		if err := s.OnRow(ctx, row, nil); err != nil {
+		if err := s.OnRow(ctx, row); err != nil {
 			return fmt.Errorf("error processing row: %w", err)
 		}
 	}

@@ -42,7 +42,7 @@ func (s *StructColumnsSource) Collect(ctx context.Context) error {
 	for i := 1; i <= s.Config.RowCount; i++ {
 		rowData := s.populateRowData(i)
 		row := &types.RowData{Data: rowData, SourceEnrichment: sourceEnrichmentFields}
-		if err := s.OnRow(ctx, row, nil); err != nil {
+		if err := s.OnRow(ctx, row); err != nil {
 			return fmt.Errorf("error processing row: %w", err)
 		}
 	}
