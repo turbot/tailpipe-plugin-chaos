@@ -1,6 +1,10 @@
 package tables
 
 import (
+	"github.com/turbot/tailpipe-plugin-chaos/extractors"
+	"github.com/turbot/tailpipe-plugin-sdk/artifact_source"
+	"github.com/turbot/tailpipe-plugin-sdk/constants"
+	"github.com/turbot/tailpipe-plugin-sdk/row_source"
 	"log/slog"
 	"time"
 
@@ -32,6 +36,12 @@ func (c *DateTimeTable) GetSourceMetadata() []*table.SourceMetadata[*rows.DateTi
 	return []*table.SourceMetadata[*rows.DateTime]{
 		{
 			SourceName: sources.DateTimeSourceIdentifier,
+		},
+		{
+			SourceName: constants.ArtifactSourceIdentifier,
+			Options: []row_source.RowSourceOption{
+				artifact_source.WithArtifactExtractor(extractors.NewDateTimeExtractor()),
+			},
 		},
 	}
 }
