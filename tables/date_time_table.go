@@ -60,7 +60,5 @@ func (c *DateTimeTable) EnrichRow(row *rows.DateTime, sourceEnrichmentFields sch
 	row.TpTimestamp = row.Timestamp
 	row.TpIngestTimestamp = time.Now()
 
-	slog.Debug(">> TpIndex", "index", row.TpIndex)
-
 	return row, nil
 }
