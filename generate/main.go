@@ -64,12 +64,10 @@ func main() {
 			return
 		}
 		// write the file
-
 		err = os.WriteFile(filename, jsonBytes, 0644)
 		if err != nil {
 			fmt.Println("error writing file", err)
 			return
-
 		}
 
 		logTime = logTime.Add(time.Hour * 4)
