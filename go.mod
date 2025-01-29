@@ -2,10 +2,6 @@ module github.com/turbot/tailpipe-plugin-chaos
 
 go 1.23.2
 
-replace github.com/turbot/tailpipe-plugin-sdk => ../tailpipe-plugin-sdk
-
-replace github.com/turbot/pipe-fittings => ../pipe-fittings
-
 require (
 	github.com/hashicorp/hcl/v2 v2.20.1
 	github.com/rs/xid v1.5.0
