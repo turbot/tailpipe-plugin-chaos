@@ -1,4 +1,4 @@
-package extractors
+package date_time
 
 import (
 	"context"

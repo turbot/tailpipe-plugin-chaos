@@ -1,4 +1,4 @@
-package sources
+package struct_columns
 
 import (
 	"context"
@@ -14,11 +14,6 @@ import (
 )
 
 const StructColumnsSourceIdentifier = "chaos_struct_columns"
-
-// init function should register the source
-func init() {
-	row_source.RegisterRowSource[*StructColumnsSource]()
-}
 
 // StructColumnsSource source is responsible for generating some rows of data
 type StructColumnsSource struct {

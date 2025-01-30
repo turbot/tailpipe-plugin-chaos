@@ -1,4 +1,4 @@
-package sources
+package date_time
 
 import (
 	"context"
@@ -8,6 +8,8 @@ import (
 
 	"github.com/turbot/tailpipe-plugin-chaos/config"
 	"github.com/turbot/tailpipe-plugin-chaos/rows"
+	"github.com/turbot/tailpipe-plugin-chaos/sources"
+	"github.com/turbot/tailpipe-plugin-chaos/sources/all_columns"
 	"github.com/turbot/tailpipe-plugin-sdk/collection_state"
 	"github.com/turbot/tailpipe-plugin-sdk/row_source"
 	"github.com/turbot/tailpipe-plugin-sdk/schema"
@@ -15,11 +17,6 @@ import (
 )
 
 const DateTimeSourceIdentifier = "chaos_date_time"
-
-// init function should register the source
-func init() {
-	row_source.RegisterRowSource[*DateTimeSource]()
-}
 
 // DateTimeSource source is responsible for collecting logs
 type DateTimeSource struct {
@@ -43,7 +40,7 @@ func (s *DateTimeSource) Collect(ctx context.Context) error {
 
 	// populate enrichment fields the source is aware of
 	// - in this case the connection
-	sourceName := AllColumnsSourceIdentifier
+	sourceName := all_columns.AllColumnsSourceIdentifier
 	sourceEnrichmentFields := &schema.SourceEnrichment{
 		CommonFields: schema.CommonFields{
 			TpSourceName: &sourceName,
@@ -60,7 +57,7 @@ func (s *DateTimeSource) Collect(ctx context.Context) error {
 		rowData := s.populateDateTime(currentTime)
 
 		row := &types.RowData{Data: rowData, SourceEnrichment: sourceEnrichmentFields}
-		slog.Debug(">> Sending row to plugin", row)
+		slog.Debug(">> Sending row to plugin", "row", row)
 		if err := s.OnRow(ctx, row); err != nil {
 			return fmt.Errorf("error processing row: %w", err)
 		}
@@ -74,7 +71,7 @@ func (s *DateTimeSource) Collect(ctx context.Context) error {
 
 func (s *DateTimeSource) populateDateTime(currentTime time.Time) *rows.DateTime {
 	return &rows.DateTime{
-		Id:        randomString(10),
+		Id:        sources.RandomString(10),
 		Timestamp: currentTime,
 	}
 }
