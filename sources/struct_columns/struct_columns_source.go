@@ -8,6 +8,7 @@ import (
 
 	"github.com/turbot/tailpipe-plugin-chaos/config"
 	"github.com/turbot/tailpipe-plugin-chaos/rows"
+	"github.com/turbot/tailpipe-plugin-sdk/collection_state"
 	"github.com/turbot/tailpipe-plugin-sdk/row_source"
 	"github.com/turbot/tailpipe-plugin-sdk/schema"
 	"github.com/turbot/tailpipe-plugin-sdk/types"
@@ -19,6 +20,14 @@ const StructColumnsSourceIdentifier = "chaos_struct_columns"
 type StructColumnsSource struct {
 	// row_source.RowSourceImpl[*StructColumnsSourceConfig]
 	row_source.RowSourceImpl[*StructColumnsSourceConfig, *config.ChaosConnection]
+}
+
+func (s *StructColumnsSource) Init(ctx context.Context, params *row_source.RowSourceParams, opts ...row_source.RowSourceOption) error {
+	// set the collection state ctor
+	s.NewCollectionStateFunc = collection_state.NewTimeRangeCollectionState
+
+	// call base init
+	return s.RowSourceImpl.Init(ctx, params, opts...)
 }
 
 func (s *StructColumnsSource) Identifier() string {
