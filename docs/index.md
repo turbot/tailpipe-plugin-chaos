@@ -21,7 +21,7 @@ The [Chaos Plugin for Tailpipe](https://hub.tailpipe.io/plugins/turbot/chaos) al
 - Community: [Join #tailpipe on Slack →](https://turbot.com/community/join)
 - Get involved: [Issues](https://github.com/turbot/tailpipe-plugin-chaos/issues)
 
-<img src="https://raw.githubusercontent.com/turbot/tailpipe-plugin-pipes/main/docs/images/pipes_audit_log_terminal.png" width="50%" type="thumbnail"/>
+<img src="https://raw.githubusercontent.com/turbot/tailpipe-plugin-chaos/main/docs/images/chaos_all_columns_terminal.png" width="50%" type="thumbnail"/>
 
 ## Getting Started
 
