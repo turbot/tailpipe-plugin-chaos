@@ -1,3 +1,9 @@
+## v0.1.1 [2025-01-30]
+
+_Bug fixes_
+
+- Added the missing plugin docs.
+
 ## v0.1.0 [2025-01-30]
 
 _What's new?_
