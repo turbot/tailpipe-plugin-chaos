@@ -1,12 +1,13 @@
-package tables
+package all_columns
 
 import (
 	"log/slog"
 	"time"
 
 	"github.com/rs/xid"
+
 	"github.com/turbot/tailpipe-plugin-chaos/rows"
-	"github.com/turbot/tailpipe-plugin-chaos/sources"
+	"github.com/turbot/tailpipe-plugin-chaos/sources/all_columns"
 	"github.com/turbot/tailpipe-plugin-sdk/schema"
 	"github.com/turbot/tailpipe-plugin-sdk/table"
 )
@@ -32,7 +33,7 @@ func (c *AllColumnsTable) Identifier() string {
 func (c *AllColumnsTable) GetSourceMetadata() []*table.SourceMetadata[*rows.AllColumns] {
 	return []*table.SourceMetadata[*rows.AllColumns]{
 		{
-			SourceName: sources.AllColumnsSourceIdentifier,
+			SourceName: all_columns.AllColumnsSourceIdentifier,
 		},
 	}
 }

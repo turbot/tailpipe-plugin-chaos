@@ -1,4 +1,4 @@
-package sources
+package struct_columns
 
 import (
 	"github.com/hashicorp/hcl/v2"

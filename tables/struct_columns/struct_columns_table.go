@@ -1,12 +1,13 @@
-package tables
+package struct_columns
 
 import (
 	"time"
 
 	"github.com/rs/xid"
+
 	"github.com/turbot/tailpipe-plugin-chaos/rows"
+	"github.com/turbot/tailpipe-plugin-chaos/sources/struct_columns"
 	"github.com/turbot/tailpipe-plugin-sdk/schema"
-	"github.com/turbot/tailpipe-plugin-chaos/sources"
 	"github.com/turbot/tailpipe-plugin-sdk/table"
 )
 
@@ -31,7 +32,7 @@ func (c *StructColumnsTable) Identifier() string {
 func (c *StructColumnsTable) GetSourceMetadata() []*table.SourceMetadata[*rows.StructColumns] {
 	return []*table.SourceMetadata[*rows.StructColumns]{
 		{
-			SourceName: sources.StructColumnsSourceIdentifier,
+			SourceName: struct_columns.StructColumnsSourceIdentifier,
 		},
 	}
 }

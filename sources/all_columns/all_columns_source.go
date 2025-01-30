@@ -1,4 +1,4 @@
-package sources
+package all_columns
 
 import (
 	"context"
@@ -6,21 +6,18 @@ import (
 	"log/slog"
 	"time"
 
+	"golang.org/x/exp/rand"
+
 	"github.com/turbot/tailpipe-plugin-chaos/config"
 	"github.com/turbot/tailpipe-plugin-chaos/rows"
+	"github.com/turbot/tailpipe-plugin-chaos/sources"
 	"github.com/turbot/tailpipe-plugin-sdk/collection_state"
 	"github.com/turbot/tailpipe-plugin-sdk/row_source"
 	"github.com/turbot/tailpipe-plugin-sdk/schema"
 	"github.com/turbot/tailpipe-plugin-sdk/types"
-	"golang.org/x/exp/rand"
 )
 
 const AllColumnsSourceIdentifier = "chaos_all_columns"
-
-// init function should register the source
-func init() {
-	row_source.RegisterRowSource[*AllColumnsSource]()
-}
 
 // AllColumnsSource source is responsible for collecting audit logs from Turbot Pipes API
 type AllColumnsSource struct {
@@ -59,7 +56,7 @@ func (s *AllColumnsSource) Collect(ctx context.Context) error {
 		rowData := s.populateRowData(i)
 
 		row := &types.RowData{Data: rowData, SourceEnrichment: sourceEnrichmentFields}
-		slog.Debug(">> Sending row to plugin", row)
+		slog.Debug(">> Sending row to plugin", "row", row)
 		if err := s.OnRow(ctx, row); err != nil {
 			return fmt.Errorf("error processing row: %w", err)
 		}
@@ -80,7 +77,7 @@ func (s *AllColumnsSource) populateRowData(i int) *rows.AllColumns {
 		Float:     rand.Float32(),
 		Double:    rand.Float64(),
 		Decimal:   rand.Float64() * 100,
-		Varchar:   randomString(10),
+		Varchar:   sources.RandomString(10),
 		Char:      string([]byte{byte(rand.Intn(26) + 65)}),
 		Boolean:   rand.Intn(2) == 0,
 		Date:      time.Now().AddDate(0, 0, rand.Intn(365)),
@@ -89,14 +86,4 @@ func (s *AllColumnsSource) populateRowData(i int) *rows.AllColumns {
 		IntArray:  []int32{rand.Int31(), rand.Int31(), rand.Int31()},
 		CreatedAt: time.Now(),
 	}
-}
-
-func randomString(n int) string {
-	// Generates a random string of length n
-	const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	b := make([]byte, n)
-	for i := range b {
-		b[i] = letters[rand.Intn(len(letters))]
-	}
-	return string(b)
 }
