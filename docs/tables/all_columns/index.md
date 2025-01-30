@@ -1,4 +1,43 @@
-## Examples
+---
+title: "Tailpipe Table: chaos_all_columns - Query Chaos all columns"
+description: "Chaos all columns captures all possible column types in DucDB."
+---
+
+# Table: chaos_all_columns - Query Chaos all columns
+
+The `chaos_all_columns` table captures all possible column types in DucDB.
+
+## Configure
+
+Create a [partition](https://tailpipe.io/docs/manage/partition) for `chaos_all_columns` ([examples](https://hub.tailpipe.io/plugins/turbot/chaos/tables/chaos_all_columns#example-configurations)):
+
+```sh
+vi ~/.tailpipe/config/chaos.tpc
+```
+
+```hcl
+partition "chaos_all_columns" "chaos_all_column_types" {
+  source "chaos_all_columns" {
+    row_count = 1
+  }
+}
+```
+
+## Collect
+
+[Collect](https://tailpipe.io/docs/manage/collection) logs for all `chaos_all_columns` partitions:
+
+```sh
+tailpipe collect chaos_all_columns
+```
+
+Or for a single partition:
+
+```sh
+tailpipe collect chaos_all_columns.chaos_all_column_types
+```
+
+## Query
 
 ### Basic info
 
@@ -14,5 +53,5 @@ select
   inet_column,
   ltree_column
 from
-  chaos_all_column_types;
+  chaos_all_columns;
 ```

@@ -51,7 +51,7 @@ partition "chaos_date_time" "date_time_inc" {
   }
 }
 
-partition "chaos_date_time" "struct_columns" {
+partition "chaos_struct_columns" "struct_columns" {
   source "chaos_struct_columns" {
     row_count = 100
   }
