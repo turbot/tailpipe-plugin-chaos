@@ -1,9 +1,9 @@
 ---
 title: "Source: chaos_all_columns"
-description: "."
+description: "Chaos all columns captures all possible column types in DuckDB."
 ---
 
-Chaos table to test all columns of different types. This table has columns for all possible data types used in tailpipe.
+Chaos table to test all columns of different types. This table has columns for all possible data types used in Tailpipe.
 
 This is used in `@test "test all columns of different types" in 001.query.bats`
 

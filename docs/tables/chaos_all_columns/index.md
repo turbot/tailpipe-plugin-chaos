@@ -1,11 +1,11 @@
 ---
 title: "Tailpipe Table: chaos_all_columns - Query Chaos all columns"
-description: "Chaos all columns captures all possible column types in DucDB."
+description: "Chaos all columns captures all possible column types in DuckDB."
 ---
 
 # Table: chaos_all_columns - Query Chaos all columns
 
-The `chaos_all_columns` table captures all possible column types in DucDB.
+The `chaos_all_columns` table captures all possible column types in DuckDB.
 
 ## Configure
 

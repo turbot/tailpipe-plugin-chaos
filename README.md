@@ -76,31 +76,24 @@ Run a query:
 
 ```sql
 select
-  event_source,
-  event_name,
-  count(*) as event_count
+  smallint_column,
+  float_column,
+  boolean_column
 from
   chaos_all_columns
-where
-  not read_only
-group by
-  event_source,
-  event_name
-order by
-  event_count desc;
+limit 5;
 ```
 
 ```sh
-+----------------------+-----------------------+-------------+
-| event_source         | event_name            | event_count |
-+----------------------+-----------------------+-------------+
-| logs.amazonchaos.com   | CreateLogStream       | 793845      |
-| ecs.amazonchaos.com    | RunTask               | 350836      |
-| ecs.amazonchaos.com    | SubmitTaskStateChange | 190185      |
-| s3.amazonchaos.com     | PutObject             | 60842       |
-| sns.amazonchaos.com    | TagResource           | 25499       |
-| lambda.amazonchaos.com | TagResource           | 20673       |
-+----------------------+-----------------------+-------------+
++----------------------+-----------------------+------------------+
+| smallint_column        | float_column          | boolean_column |
++----------------------+-----------------------+------------------+
+| 5                      | 5.0                   | true           |
+| 6                      | 6.0                   | false          |
+| 7                      | 7.0                   | false          |
+| 8                      | 8.0                   | true           |
+| 9                      | 9.0                   | false          |
++----------------------+-----------------------+------------------+
 ```
 
 ## Developing

@@ -1,3 +1,15 @@
+## v0.1.3 [2025-01-30]
+
+_Bug fixes_
+
+- Fixed brand color.
+
+## v0.1.2 [2025-01-30]
+
+_Bug fixes_
+
+- Fixed table and source doc filenames to fix Hub build.
+
 ## v0.1.1 [2025-01-30]
 
 _Bug fixes_
