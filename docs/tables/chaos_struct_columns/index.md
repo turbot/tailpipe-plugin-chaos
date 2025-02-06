@@ -1,6 +1,6 @@
 ---
 title: "Tailpipe Table: chaos_struct_columns - Query Chaos struct columns"
-description: "Chaos date time captures all the struct columns while collecting logs from different sources."
+description: "Chaos struct columns captures all the struct columns while collecting logs from different sources."
 ---
 
 # Table: chaos_struct_columns - Query Chaos date time

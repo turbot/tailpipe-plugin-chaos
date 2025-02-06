@@ -1,5 +1,5 @@
 ---
-title: "Source: chaos_all_columns"
+title: "Source: chaos_all_columns - Collect logs of all possible column types in DuckDB"
 description: "Chaos all columns captures all possible column types in DuckDB."
 ---
 
