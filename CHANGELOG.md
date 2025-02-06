@@ -1,3 +1,9 @@
+## v0.2.0 [2025-02-06]
+
+_Enhancements_
+
+- Added documentation for `chaos_date_time` and `chaos_struct_columns` sources. ([#5](https://github.com/turbot/tailpipe-plugin-chaos/pull/5))
+
 ## v0.1.3 [2025-01-30]
 
 _Bug fixes_
