@@ -3,7 +3,7 @@ organization: Turbot
 category: ["software development"]
 icon_url: "/images/plugins/turbot/tailpipe.svg"
 brand_color: "#F18701"
-display_name: "Chaos (Tailpipe)"
+display_name: "Chaos"
 name: "chaos"
 description: "Tailpipe plugin for testing Tailpipe in weird and wonderful ways."
 ---

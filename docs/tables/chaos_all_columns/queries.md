@@ -1,6 +1,6 @@
 ## Examples
 
-### Basic info
+### Basic Info
 
 ```sql
 select
@@ -15,4 +15,8 @@ select
   ltree_column
 from
   chaos_all_column_types;
+```
+
+```yaml
+folder: Account
 ```

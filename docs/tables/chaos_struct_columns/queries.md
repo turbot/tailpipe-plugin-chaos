@@ -1,6 +1,6 @@
 ## Examples
 
-### Basic info
+### Basic Info
 
 ```sql
 select
@@ -9,4 +9,8 @@ select
   nested_struct
 from
   chaos_struct_columns;
+```
+
+```yaml
+folder: Account
 ```

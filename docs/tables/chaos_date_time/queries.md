@@ -1,6 +1,6 @@
 ## Examples
 
-### Basic info
+### Basic Info
 
 ```sql
 select
@@ -8,4 +8,8 @@ select
   timestamp
 from
   chaos_date_time;
+```
+
+```yaml
+folder: Account
 ```
