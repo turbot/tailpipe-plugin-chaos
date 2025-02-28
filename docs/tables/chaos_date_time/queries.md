@@ -9,7 +9,3 @@ select
 from
   chaos_date_time;
 ```
-
-```yaml
-folder: Account
-```

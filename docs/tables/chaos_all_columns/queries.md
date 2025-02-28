@@ -16,7 +16,3 @@ select
 from
   chaos_all_column_types;
 ```
-
-```yaml
-folder: Account
-```

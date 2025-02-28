@@ -10,7 +10,3 @@ select
 from
   chaos_struct_columns;
 ```
-
-```yaml
-folder: Account
-```
