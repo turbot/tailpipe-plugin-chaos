@@ -1,3 +1,9 @@
+## v0.2.1 [2025-03-03]
+
+_Bug fixes_
+
+- Fixed the plugin name to use `Chaos` instead of `Chaos (Tailpipe)`. ([#6](https://github.com/turbot/tailpipe-plugin-chaos/pull/6))
+
 ## v0.2.0 [2025-02-06]
 
 _Enhancements_
