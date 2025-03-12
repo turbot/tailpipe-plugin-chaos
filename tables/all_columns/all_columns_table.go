@@ -30,12 +30,12 @@ func (c *AllColumnsTable) Identifier() string {
 	return AllColumnsTableIdentifier
 }
 
-func (c *AllColumnsTable) GetSourceMetadata() []*table.SourceMetadata[*rows.AllColumns] {
+func (c *AllColumnsTable) GetSourceMetadata() ([]*table.SourceMetadata[*rows.AllColumns], error) {
 	return []*table.SourceMetadata[*rows.AllColumns]{
 		{
 			SourceName: all_columns.AllColumnsSourceIdentifier,
 		},
-	}
+	}, nil
 }
 
 func (c *AllColumnsTable) EnrichRow(row *rows.AllColumns, sourceEnrichmentFields schema.SourceEnrichment) (*rows.AllColumns, error) {

@@ -32,7 +32,7 @@ func (c *DateTimeTable) Identifier() string {
 	return DateTimeTableIdentifier
 }
 
-func (c *DateTimeTable) GetSourceMetadata() []*table.SourceMetadata[*rows.DateTime] {
+func (c *DateTimeTable) GetSourceMetadata() ([]*table.SourceMetadata[*rows.DateTime], error) {
 	return []*table.SourceMetadata[*rows.DateTime]{
 		{
 			SourceName: date_time.DateTimeSourceIdentifier,
@@ -43,7 +43,7 @@ func (c *DateTimeTable) GetSourceMetadata() []*table.SourceMetadata[*rows.DateTi
 				artifact_source.WithArtifactExtractor(NewDateTimeExtractor()),
 			},
 		},
-	}
+	}, nil
 }
 
 func (c *DateTimeTable) EnrichRow(row *rows.DateTime, sourceEnrichmentFields schema.SourceEnrichment) (*rows.DateTime, error) {
