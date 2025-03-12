@@ -29,12 +29,12 @@ func (c *StructColumnsTable) Identifier() string {
 	return StructColumnsTableIdentifier
 }
 
-func (c *StructColumnsTable) GetSourceMetadata() []*table.SourceMetadata[*rows.StructColumns] {
+func (c *StructColumnsTable) GetSourceMetadata() ([]*table.SourceMetadata[*rows.StructColumns], error) {
 	return []*table.SourceMetadata[*rows.StructColumns]{
 		{
 			SourceName: struct_columns.StructColumnsSourceIdentifier,
 		},
-	}
+	}, nil
 }
 
 func (c *StructColumnsTable) EnrichRow(row *rows.StructColumns, sourceEnrichmentFields schema.SourceEnrichment) (*rows.StructColumns, error) {
