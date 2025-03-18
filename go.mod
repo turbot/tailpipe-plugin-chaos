@@ -8,7 +8,7 @@ require (
 	github.com/hashicorp/hcl/v2 v2.20.1
 	github.com/rs/xid v1.5.0
 	github.com/turbot/go-kit v1.1.0
-	github.com/turbot/tailpipe-plugin-sdk v0.2.0-alpha.1
+	github.com/turbot/tailpipe-plugin-sdk v0.2.0-alpha.2
 	golang.org/x/exp v0.0.0-20250128182459-e0ece0dbea4c
 )
 
