@@ -45,7 +45,7 @@ func (c *AllColumnsTable) EnrichRow(row *rows.AllColumns, sourceEnrichmentFields
 
 	// id & Hive fields
 	row.TpID = xid.New().String()
-	row.TpIndex = row.TpID
+	//row.TpIndex = row.TpID
 	row.TpDate = row.CreatedAt.Truncate(24 * time.Hour)
 
 	// Timestamps

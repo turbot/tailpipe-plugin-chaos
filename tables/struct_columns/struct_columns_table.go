@@ -41,7 +41,7 @@ func (c *StructColumnsTable) EnrichRow(row *rows.StructColumns, sourceEnrichment
 	row.CommonFields = sourceEnrichmentFields.CommonFields
 
 	row.TpID = xid.New().String()
-	row.TpIndex = row.Timestamp.Format("2006_01_02_06_05_04")
+	////row.TpIndex = row.Timestamp.Format("2006_01_02_06_05_04")
 	row.TpTimestamp = row.Timestamp
 	row.TpDate = row.Timestamp.Truncate(24 * time.Hour)
 	row.TpIngestTimestamp = time.Now()

@@ -53,7 +53,7 @@ func (c *DateTimeTable) EnrichRow(row *rows.DateTime, sourceEnrichmentFields sch
 
 	// id & Hive fields
 	row.TpID = row.Id
-	row.TpIndex = row.TpID
+	//row.TpIndex = row.TpID
 	row.TpDate = row.Timestamp.Truncate(24 * time.Hour)
 
 	// Timestamps
